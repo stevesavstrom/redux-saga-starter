@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 
 function App() {
   const dispatch = useDispatch();
@@ -13,12 +13,7 @@ function App() {
   }
 
   const getElements = () => {
-    axios.get('/api/element').then(response => {
-      dispatch({ type: 'SET_ELEMENTS', payload: response.data });
-    })
-      .catch(error => {
-        console.log('error with element get request', error);
-      });
+    dispatch({type: 'FETCH_ELEMENTS'});
   }
 
   useEffect(() => {
@@ -26,14 +21,15 @@ function App() {
   }, []);
 
   const handleClick = () => {
-    axios.post('/api/element', {newElement}).then(() => {
-      getElements();
-      setNewElement('');
-    })
-      .catch(error => {
-        console.log('error with element get request', error);
-      });
-
+    // axios.post('/api/element', {newElement}).then(() => {
+    //   dispatch({type: 'FETCH_ELEMENTS'})
+    //   setNewElement('');
+    // })
+    //   .catch(error => {
+    //     console.log('error with element get request', error);
+    //   });
+    dispatch({ type: 'ADD_ELEMENT', payload: newElement });
+    setNewElement('');
   }
 
 
